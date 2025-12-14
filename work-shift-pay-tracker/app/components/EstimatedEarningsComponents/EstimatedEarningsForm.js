@@ -10,6 +10,7 @@ export default function EstimatedEarningsForm() {
   const [overtimeWage, setOvertimeWage] = useState(0);
   const [shifts, setShifts] = useState([]);
   const [weeks, setWeeks] = useState([]);
+  const [expandedWeek, setExpandedWeek] = useState(null);
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -98,9 +99,62 @@ export default function EstimatedEarningsForm() {
         Estimated Weekly Earnings
       </h1>
 
-      <p className="text-gray-500">
-        Weekly earnings will be calculated here.
-      </p>
+      {weeks.length === 0 ? (
+        <p className="text-gray-500">No shifts recorded yet.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {weeks.map((week, index) => {
+            const weekKey = `week-${index}`;
+
+            const regularPay = week.regular * hourlyWage;
+            const overtimePay = week.overtime * overtimeWage;
+            const total = regularPay + overtimePay;
+
+            return (
+              <div
+                key={index}
+                className="bg-[#F1FAF8] p-5 rounded-xl shadow-md border"
+              >
+                <h3 className="font-semibold text-lg mb-2">{week.weekLabel}</h3>
+
+                <p>Regular Hours: <strong>{week.regular.toFixed(1)}</strong></p>
+                <p>Overtime Hours: <strong>{week.overtime.toFixed(1)}</strong></p>
+
+                <button
+                  onClick={() =>
+                    setExpandedWeek(expandedWeek === weekKey ? null : weekKey)
+                  }
+                  className="mt-4 px-4 py-2 bg-[#0E4C58] text-white rounded-full hover:bg-[#0C3F4A] transition"
+                >
+                  {expandedWeek === weekKey
+                    ? "Hide Earnings"
+                    : "Calculate Earnings"}
+                </button>
+
+                {expandedWeek === weekKey && (
+                  <div className="mt-4 bg-white p-4 rounded-lg border">
+                    <p>
+                      Regular: {week.regular.toFixed(1)} × ${hourlyWage} = 
+                      <strong> ${regularPay.toFixed(2)}</strong>
+                    </p>
+
+                    <p>
+                      Overtime: {week.overtime.toFixed(1)} × ${overtimeWage} =
+                      <strong> ${overtimePay.toFixed(2)}</strong>
+                    </p>
+
+                    <hr className="my-2" />
+
+                    <p className="text-lg font-bold">
+                      Total: ${total.toFixed(2)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

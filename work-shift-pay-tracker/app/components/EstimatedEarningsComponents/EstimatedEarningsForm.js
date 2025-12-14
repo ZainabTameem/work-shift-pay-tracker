@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { auth, db } from "../../lib/firebase";
+import { collection, onSnapshot, doc, getDoc } from "firebase/firestore";
+
 
 export default function EstimatedEarningsForm() {
   return (

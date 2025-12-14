@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { RoundedFilledButton } from "../../components/Buttons";
 import { auth } from "../../lib/firebase";
 import Input from "../../components/Input";
-import Button from "../../components/Button";
+import Header from "../../components/header";
+import { GoogleButton } from "../../components/GoogleButton";
+
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -31,17 +35,14 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <header className="w-full bg-emerald-100 py-4 px-8 flex justify-between items-center">
-        <h1 className="font-semibold tracking-wide">WORKLY</h1>
-        <span className="text-sm tracking-wide">PAY & SHIFT TRACKER</span>
-      </header>
+      <Header />
 
       <div className="bg-white mt-16 w-full max-w-md rounded-xl shadow-md p-8">
         <h2 className="text-center text-xl font-semibold mb-6">
           Sign in with
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Input
             placeholder="Username"
             value={email}
@@ -58,14 +59,22 @@ export default function LoginPage() {
           <p className="text-xs text-center text-gray-500">
             Forgot password? Try another way to sign in.
           </p>
-
-          <Button disabled={loading}>Sign in</Button>
+          <div className="flex justify-center mt-4">
+            <RoundedFilledButton
+              text={loading ? "Signing in..." : "Sign in"}
+              onClick={handleSubmit}
+              disabled={loading}
+            />
+          </div>
         </form>
 
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gray-300" />
           <span className="px-4 text-sm text-gray-500">OR</span>
           <div className="flex-grow h-px bg-gray-300" />
+        </div>
+        <div className="flex justify-center mt-4">
+          <GoogleButton onClick={() => console.log("Sign in with Google")} />
         </div>
 
         <p className="text-sm text-center mt-6">

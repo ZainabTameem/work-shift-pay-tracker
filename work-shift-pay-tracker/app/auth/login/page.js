@@ -5,8 +5,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { RoundedFilledButton } from "../../components/Buttons";
 import { auth } from "../../lib/firebase";
 import Input from "../../components/Input";
-import { GoogleButton } from "../../components/GoogleButton";
-
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -33,7 +31,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center">
 
       <div className="bg-white mt-16 w-full max-w-md rounded-xl shadow-md p-8">
         <h2 className="text-center text-xl font-semibold mb-6">

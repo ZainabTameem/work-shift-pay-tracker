@@ -57,7 +57,7 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button disabled={loading}>Sign in</Button>
+          <Button disabled={loading}>Sign up</Button>
         </form>
 
         <div className="flex items-center my-6">

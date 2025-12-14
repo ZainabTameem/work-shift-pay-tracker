@@ -22,7 +22,7 @@ function PageContent({ children }) {
   const pathname = usePathname();
 
   // Hide navbar ONLY on landing page "/"
-  const hideNavbar = pathname === "/";
+  const hideNavbar = pathname === "/" || pathname.startsWith("/auth");
 
   return (
     <>

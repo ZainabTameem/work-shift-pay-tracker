@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { auth, db } from "../../lib/firebase";
-import { collection, onSnapshot, doc } from "firebase/firestore";
+import { collection, onSnapshot, doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function ViewShifts() {
   const [hourlyWage, setHourlyWage] = useState(0);
@@ -89,7 +89,7 @@ export default function ViewShifts() {
 
   return (
     <div className="max-w-4xl mx-auto mt-10 bg-white shadow-md p-6 rounded-xl">
-      <h2 className="text-xl fsont-semibold mb-6 text-[#0E4C58]">
+      <h2 className="text-xl font-semibold mb-6 text-[#0E4C58]">
         Your Shifts
       </h2>
 

@@ -120,12 +120,7 @@ export default function EditShifts() {
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleSave(shift.id)}
-                    className="px-4 py-1 rounded-full
-    bg-[#0E4C58] text-white
-    hover:bg-[#F5FBFB] hover:text-[#0E4C58]
-    dark:bg-[#F5FBFB] dark:text-[#0E4C58]
-    dark:hover:bg-[#0E4C58] dark:hover:text-white
-    border border-[#0E4C58] transition-colors duration-200"
+                    className="px-3 py-1 border border-[#0E4C58] rounded-full text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white dark:bg-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                   >
                     Save
                   </button>

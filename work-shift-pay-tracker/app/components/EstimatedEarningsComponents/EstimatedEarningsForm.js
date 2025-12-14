@@ -71,7 +71,7 @@ export default function EstimatedEarningsForm() {
       const endM = getMinutes(shift.end);
 
       let diff = endM - startM;
-      if (diff < 0) diff += 24 * 60; 
+      if (diff < 0) diff += 24 * 60;
 
       const hours = diff / 60;
 
@@ -95,14 +95,14 @@ export default function EstimatedEarningsForm() {
 
   return (
     <div className="max-w-5xl mx-auto mt-10 px-4 pb-16">
-      <h1 className="text-2xl font-bold text-[#0E4C58] mb-6">
+      <h1 className="text-2xl font-bold text-[#0E4C58] mb-6 dark:text-gray-300">
         Estimated Weekly Earnings
       </h1>
 
       {weeks.length === 0 ? (
         <p className="text-gray-500">No shifts recorded yet.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
           {weeks.map((week, index) => {
             const weekKey = `week-${index}`;
 
@@ -113,7 +113,7 @@ export default function EstimatedEarningsForm() {
             return (
               <div
                 key={index}
-                className="bg-[#F1FAF8] p-5 rounded-xl shadow-md border"
+                className="bg-[#F1FAF8] p-5 rounded-xl shadow-md border  dark:bg-gray-500 dark:border-gray-500"
               >
                 <h3 className="font-semibold text-lg mb-2">{week.weekLabel}</h3>
 
@@ -124,7 +124,7 @@ export default function EstimatedEarningsForm() {
                   onClick={() =>
                     setExpandedWeek(expandedWeek === weekKey ? null : weekKey)
                   }
-                  className="mt-4 px-4 py-2 bg-[#0E4C58] text-white rounded-full hover:bg-[#0C3F4A] transition"
+                  className="mt-4 px-4 py-2 bg-[#0E4C58] text-white rounded-full hover:bg-[#0C3F4A] transition  dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-400 dark:hover:text-[#0E4C58]"
                 >
                   {expandedWeek === weekKey
                     ? "Hide Earnings"
@@ -132,9 +132,9 @@ export default function EstimatedEarningsForm() {
                 </button>
 
                 {expandedWeek === weekKey && (
-                  <div className="mt-4 bg-white p-4 rounded-lg border">
+                  <div className="mt-4 bg-white p-4 rounded-lg border dark:bg-gray-800 dark:border-gray-800">
                     <p>
-                      Regular: {week.regular.toFixed(1)} × ${hourlyWage} = 
+                      Regular: {week.regular.toFixed(1)} × ${hourlyWage} =
                       <strong> ${regularPay.toFixed(2)}</strong>
                     </p>
 

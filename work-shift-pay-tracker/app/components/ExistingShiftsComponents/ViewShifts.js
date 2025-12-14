@@ -232,7 +232,7 @@ export default function ViewShifts() {
                 <button
                   type="button"
                   onClick={handleSaveOvertime}
-                  className="px-4 py-2 text-sm rounded-full bg-[#0E4C58] text-white hover:bg-[#0C3F4A]"
+                  className="px-4 py-2 text-sm rounded-full bg-[#0E4C58] text-white hover:bg-[#0C3F4A] dark:text-white dark:bg-[#0E4C58] dark:border-[#0E4C58] dark:text-white dark:hover:bg-gray-700"
                 >
                   Save
                 </button>

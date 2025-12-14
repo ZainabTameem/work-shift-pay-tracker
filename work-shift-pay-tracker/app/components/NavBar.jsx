@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import Link from "next/link";
 import { signOut } from "firebase/auth";
@@ -14,4 +14,4 @@ export default function NavBar() {
       <button onClick={() => signOut(auth)}>Logout</button>
     </nav>
   );
-}
+}*/

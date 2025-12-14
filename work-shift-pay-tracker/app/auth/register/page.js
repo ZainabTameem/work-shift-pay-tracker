@@ -7,8 +7,7 @@ import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 import Input from "../../components/Input";
 import { RoundedFilledButton } from "../../components/Buttons";
-import Header from "../../components/header";
-import { GoogleButton } from "../../components/GoogleButton";
+
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -68,7 +67,6 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <Header />
 
       <div className="bg-white mt-16 w-full max-w-md rounded-xl shadow-md p-8">
         <h2 className="text-center text-xl font-semibold mb-6">
@@ -111,11 +109,6 @@ export default function RegisterPage() {
           <span className="px-4 text-sm text-gray-500">OR</span>
           <div className="flex-grow h-px bg-gray-300" />
         </div>
-
-        <div className="flex justify-center mt-4">
-          <GoogleButton onClick={() => console.log("Sign up with Google")} />
-        </div>
-
         <p className="text-sm text-center mt-6">
           Already have an account?{" "}
           <Link

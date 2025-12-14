@@ -52,6 +52,13 @@ export default function AddShiftForm() {
         <form className="space-y-6" onSubmit={handleSubmit}>
 
           <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Shift Date
+            </label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               required
               className="w-full border border-gray-300 p-3 rounded-lg 
               focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"

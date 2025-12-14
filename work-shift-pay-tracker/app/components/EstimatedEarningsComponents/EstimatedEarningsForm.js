@@ -7,39 +7,7 @@ export default function EstimatedEarningsForm() {
         Weekly Earnings
       </h2>
 
-      <div className="space-y-6 mb-10">
-
-        {/* Weekly Hours Block */}
-        <div className="bg-[#F3FBF7] p-5 rounded-xl border border-[#D9F0E6]">
-          <p className="text-lg font-medium text-gray-700">Weekly Hours</p>
-          <p className="text-sm text-gray-500 mb-3">
-            Total number of hours worked from Monday–Sunday
-          </p>
-
-          <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border">
-            <p className="text-gray-600">Calculated Weekly Hours</p>
-            <p className="text-xl font-semibold text-[#0E4C58]">
-              -- hours
-            </p>
-          </div>
-        </div>
-
-        {/* Overtime Hours Block */}
-        <div className="bg-[#F3FBF7] p-5 rounded-xl border border-[#D9F0E6]">
-          <p className="text-lg font-medium text-gray-700">Overtime Hours</p>
-          <p className="text-sm text-gray-500 mb-3">
-            Hours above 8 per shift will be counted as overtime
-          </p>
-
-          <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border">
-            <p className="text-gray-600">Total Overtime Hours</p>
-            <p className="text-xl font-semibold text-[#0E4C58]">
-              -- hours
-            </p>
-          </div>
-        </div>
-
-      </div>
+      {/* NEW CODE WILL BE ADDED SECTION BY SECTION IN FUTURE COMMITS */}
 
       <p className="text-center text-gray-500">
         Earnings calculator coming soon...

@@ -25,7 +25,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard");
+      router.push("/view");
     } catch (err) {
       alert(err.code);
     } finally {

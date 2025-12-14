@@ -4,7 +4,8 @@ import Link from "next/link";
 
 export default function Navbar() {
   const menuItems = [
-    { name: "Dashboard", href: "/dashboard" },
+    { name: "View", href: "/view" },
+    { name: "Add", href: "/add" },
     { name: "Manage Existing Shifts", href: "/shifts" },
     { name: "Estimated Earnings", href: "/earnings" },
     { name: "Settings", href: "/settings" },

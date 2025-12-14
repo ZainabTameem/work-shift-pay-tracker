@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { RoundedFilledButton } from "../../components/Buttons";
 import { auth } from "../../lib/firebase";
 import Input from "../../components/Input";
-
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -18,9 +16,14 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return;
-    setLoading(true);
+
+    if (!email.trim() || !password.trim()) {
+      alert("Please enter email and password.");
+      return;
+    }
+
     try {
+      setLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
     } catch (err) {
@@ -35,14 +38,15 @@ export default function LoginPage() {
 
       <div className="bg-white dark:bg-gray-800 mt-16 w-full max-w-md rounded-xl shadow-md p-8 dark:text-white mb-6">
         <h2 className="text-center text-xl font-semibold mb-6">
-          Sign in with
+          Sign in
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5 dark:text-white">
           <Input
-            placeholder="Username"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
           <Input
@@ -50,17 +54,17 @@ export default function LoginPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
-          <p className="text-xs text-center text-gray-500">
-            Forgot password? Try another way to sign in.
-          </p>
           <div className="flex justify-center mt-4">
-            <RoundedFilledButton
-              text={loading ? "Signing in..." : "Sign in"}
-              onClick={handleSubmit}
+            <button
+              type="submit"
               disabled={loading}
-            />
+              className="w-full bg-teal-700 text-white py-2 rounded-full text-center"
+            >
+              {loading ? "Signing in..." : "Sign in"}
+            </button>
           </div>
         </form>
 
@@ -83,4 +87,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

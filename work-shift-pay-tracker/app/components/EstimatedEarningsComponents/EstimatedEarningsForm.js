@@ -9,6 +9,7 @@ export default function EstimatedEarningsForm() {
   const [hourlyWage, setHourlyWage] = useState(0);
   const [overtimeWage, setOvertimeWage] = useState(0);
   const [shifts, setShifts] = useState([]);
+  const [weeks, setWeeks] = useState([]);
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -47,6 +48,49 @@ export default function EstimatedEarningsForm() {
     const [h, m] = timeStr.split(":").map(Number);
     return h * 60 + m;
   };
+
+  useEffect(() => {
+    if (shifts.length === 0) return;
+
+    const grouped = {};
+
+    shifts.forEach((shift) => {
+      const date = new Date(shift.date);
+      const day = date.getDay();
+
+      const monday = new Date(date);
+      monday.setDate(date.getDate() - ((day + 6) % 7));
+
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+
+      const weekLabel = `Week of ${monday.toDateString()} – ${sunday.toDateString()}`;
+
+      const startM = getMinutes(shift.start);
+      const endM = getMinutes(shift.end);
+
+      let diff = endM - startM;
+      if (diff < 0) diff += 24 * 60; 
+
+      const hours = diff / 60;
+
+      const regular = Math.min(hours, 8);
+      const overtime = Math.max(hours - 8, 0);
+
+      if (!grouped[weekLabel]) {
+        grouped[weekLabel] = {
+          regular: 0,
+          overtime: 0,
+          weekLabel,
+        };
+      }
+
+      grouped[weekLabel].regular += regular;
+      grouped[weekLabel].overtime += overtime;
+    });
+
+    setWeeks(Object.values(grouped));
+  }, [shifts]);
 
   return (
     <div className="max-w-4xl mx-auto mt-10">

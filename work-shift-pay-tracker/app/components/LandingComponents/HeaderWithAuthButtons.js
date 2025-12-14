@@ -7,8 +7,8 @@ import { RoundedFilledButton, RoundedOutlineButton } from "../Buttons";
 export default function HeaderWithAuthButtons({ logoSrc = "/Logo.svg" }) {
   const router = useRouter();
 
-  const goToLogin = () => router.push("/login");
-  const goToSignUp = () => router.push("/signup");
+  const goToLogin = () => router.push("/auth/login");
+  const goToSignUp = () => router.push("/auth/register");
 
   return (
     <header className="bg-[#DDFCE7] w-full py-4 shadow-md flex justify-center">

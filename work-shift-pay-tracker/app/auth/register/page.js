@@ -2,16 +2,20 @@
 
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+
 import Input from "../../components/Input";
-import Button from "../../components/Button";
-import Link from "next/link";
+import { RoundedFilledButton } from "../../components/Buttons";
+
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -19,32 +23,59 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
+
+    // Front-end validation
+    if (!email || !password || !confirmPassword) {
+      alert("All fields are required.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        createdAt: serverTimestamp(),
+      });
+
       router.push("/auth/login");
     } catch (err) {
-      alert(err.code);
+      let message = "Something went wrong!";
+      switch (err.code) {
+        case "auth/email-already-in-use":
+          message = "This email is already registered.";
+          break;
+        case "auth/invalid-email":
+          message = "Please enter a valid email address.";
+          break;
+        case "auth/weak-password":
+          message = "Password should be at least 6 characters.";
+          break;
+      }
+      alert(message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <header className="w-full bg-emerald-100 py-4 px-8 flex justify-between items-center">
-        <h1 className="font-semibold tracking-wide">WORKLY</h1>
-        <span className="text-sm tracking-wide">PAY & SHIFT TRACKER</span>
-      </header>
+    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center dark:bg-gray-700">
 
-      <div className="bg-white mt-16 w-full max-w-md rounded-xl shadow-md p-8">
+      <div className="bg-white dark:bg-gray-800 mt-16 w-full max-w-md rounded-xl shadow-md p-8 dark:text-white mb-6">
         <h2 className="text-center text-xl font-semibold mb-6">
           Create an account
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Input
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -57,15 +88,27 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button disabled={loading}>Sign in</Button>
+          <Input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+
+          <div className="flex justify-center mt-4">
+            <RoundedFilledButton
+              text={loading ? "Creating account..." : "Sign up"}
+              onClick={handleSubmit}
+              disabled={loading}
+            />
+          </div>
         </form>
 
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gray-300" />
-          <span className="px-4 text-sm text-gray-500">OR</span>
+          <span className="px-4 text-sm text-gray-500 dark:text-white">OR</span>
           <div className="flex-grow h-px bg-gray-300" />
         </div>
-
         <p className="text-sm text-center mt-6">
           Already have an account?{" "}
           <Link
@@ -75,8 +118,8 @@ export default function RegisterPage() {
             Sign in
           </Link>
         </p>
-
       </div>
     </div>
   );
 }
+

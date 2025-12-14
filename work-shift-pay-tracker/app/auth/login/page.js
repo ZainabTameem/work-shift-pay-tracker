@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import Input from "../../components/Input";
-import Button from "../../components/Button";
+import { RoundedFilledButton } from "../../components/Buttons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -17,11 +17,16 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return;
-    setLoading(true);
+
+    if (!email.trim() || !password.trim()) {
+      alert("Please enter email and password.");
+      return;
+    }
+
     try {
+      setLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard");
+      router.push("/view");
     } catch (err) {
       alert(err.code);
     } finally {
@@ -30,22 +35,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <header className="w-full bg-emerald-100 py-4 px-8 flex justify-between items-center">
-        <h1 className="font-semibold tracking-wide">WORKLY</h1>
-        <span className="text-sm tracking-wide">PAY & SHIFT TRACKER</span>
-      </header>
+    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center dark:bg-gray-700 ">
 
-      <div className="bg-white mt-16 w-full max-w-md rounded-xl shadow-md p-8">
+      <div className="bg-white dark:bg-gray-800 mt-16 w-full max-w-md rounded-xl shadow-md p-8 dark:text-white mb-6">
         <h2 className="text-center text-xl font-semibold mb-6">
-          Sign in with
+          Sign in
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5 dark:text-white">
           <Input
-            placeholder="Username"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
           <Input
@@ -53,18 +55,22 @@ export default function LoginPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
-          <p className="text-xs text-center text-gray-500">
-            Forgot password? Try another way to sign in.
-          </p>
-
-          <Button disabled={loading}>Sign in</Button>
+          <div className="flex justify-center mt-4">
+            <RoundedFilledButton
+              type="submit"
+              disabled={loading}
+              className="w-full py-2 rounded-full text-center bg-teal-700"
+              text={loading ? "Signing in..." : "Sign in"}
+            />
+          </div>
         </form>
 
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gray-300" />
-          <span className="px-4 text-sm text-gray-500">OR</span>
+          <span className="px-4 text-sm text-gray-500 dark:text-white">OR</span>
           <div className="flex-grow h-px bg-gray-300" />
         </div>
 
@@ -81,14 +87,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-/*"use client";
-import LoginForm from "../components/auth-forms/LoginForm"; // path adjusted
-
-export default function LoginPage() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5]">
-      <LoginForm />
-    </div>
-  );
-}*/

@@ -25,11 +25,32 @@ export default function EstimatedEarningsForm() {
     })();
   }, []);
 
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const shiftsRef = collection(doc(db, "users", user.uid), "shifts");
+
+    const unsubscribe = onSnapshot(shiftsRef, (snapshot) => {
+      const data = snapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+      setShifts(data);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="max-w-4xl mx-auto mt-10">
       <h1 className="text-2xl font-bold text-[#0E4C58] mb-6">
         Estimated Weekly Earnings
       </h1>
+
+      <p className="text-gray-500">
+        Weekly earnings will be calculated here.
+      </p>
     </div>
   );
 }

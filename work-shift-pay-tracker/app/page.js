@@ -18,16 +18,16 @@ export default function Home() {
           CAPABILITIES
         </h2>
 
-        <h1 className="mb-2 text-2xl text-gray-600 max-w-md">
+        <h1 className="mb-2 text-2xl text-gray-600 max-w-md dark:text-gray-300">
           WHAT SETS US APART
         </h1>
 
-        <p className="mb-10 text-center text-gray-600 max-w-md">
+        <p className="mb-10 text-center text-gray-600 max-w-md dark:text-gray-300">
           Built for those who work hourly and need clarity.
         </p>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 dark:text-gray-700 ">
           <CapabilityCard
             title="Earnings estimation that works"
             description="Input your hourly rate and watch the math happen."

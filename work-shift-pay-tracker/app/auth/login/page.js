@@ -31,14 +31,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center dark:bg-gray-700 ">
 
-      <div className="bg-white mt-16 w-full max-w-md rounded-xl shadow-md p-8">
+      <div className="bg-white dark:bg-gray-800 mt-16 w-full max-w-md rounded-xl shadow-md p-8 dark:text-white mb-6">
         <h2 className="text-center text-xl font-semibold mb-6">
           Sign in with
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5 dark:text-white">
           <Input
             placeholder="Username"
             value={email}

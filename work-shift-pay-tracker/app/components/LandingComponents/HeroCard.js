@@ -16,7 +16,7 @@ export default function HeroCard() {
 
         {/* RIGHT: Text content */}
         <div className="px-10 py-12 flex flex-col gap-4 justify-center">
-          <h1 className="text-3xl md:text-4xl font-medium leading-snug">
+          <h1 className="text-3xl md:text-4xl font-medium dark:text-gray-700">
             Know what you’ll earn <br /> before the week ends
           </h1>
 

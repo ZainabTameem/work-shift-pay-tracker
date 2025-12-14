@@ -6,7 +6,7 @@ export default function Navbar() {
   const menuItems = [
     { name: "View", href: "/view" },
     { name: "Add", href: "/add" },
-    { name: "Manage Existing Shifts", href: "/shifts" },
+    { name: "Edit", href: "/edit" },
     { name: "Estimated Earnings", href: "/earnings" },
     { name: "Settings", href: "/settings" },
     { name: "Profile", href: "/profile" },

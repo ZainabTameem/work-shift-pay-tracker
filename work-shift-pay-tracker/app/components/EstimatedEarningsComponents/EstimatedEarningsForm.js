@@ -42,6 +42,12 @@ export default function EstimatedEarningsForm() {
     return () => unsubscribe();
   }, []);
 
+  const getMinutes = (timeStr) => {
+    if (!timeStr || !timeStr.includes(":")) return 0;
+    const [h, m] = timeStr.split(":").map(Number);
+    return h * 60 + m;
+  };
+
   return (
     <div className="max-w-4xl mx-auto mt-10">
       <h1 className="text-2xl font-bold text-[#0E4C58] mb-6">

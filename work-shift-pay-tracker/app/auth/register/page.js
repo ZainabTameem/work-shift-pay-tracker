@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../lib/firebase";
+import { db } from "../../lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Link from "next/link";
@@ -21,7 +24,18 @@ export default function RegisterPage() {
     if (loading) return;
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        createdAt: new Date(),
+      });
       router.push("/auth/login");
     } catch (err) {
       alert(err.code);

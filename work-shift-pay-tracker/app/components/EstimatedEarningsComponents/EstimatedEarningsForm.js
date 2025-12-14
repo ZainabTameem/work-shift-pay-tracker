@@ -94,7 +94,7 @@ export default function EstimatedEarningsForm() {
   }, [shifts]);
 
   return (
-    <div className="max-w-4xl mx-auto mt-10">
+    <div className="max-w-5xl mx-auto mt-10 px-4 pb-16">
       <h1 className="text-2xl font-bold text-[#0E4C58] mb-6">
         Estimated Weekly Earnings
       </h1>
@@ -102,7 +102,7 @@ export default function EstimatedEarningsForm() {
       {weeks.length === 0 ? (
         <p className="text-gray-500">No shifts recorded yet.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {weeks.map((week, index) => {
             const weekKey = `week-${index}`;
 

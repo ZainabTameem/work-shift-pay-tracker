@@ -28,7 +28,7 @@ function PageContent({ children }) {
     <>
       {/* Fixed Header (visible on all pages except root) */}
       {!hideHeader && (
-        <div className="fixed top-0 left-0 w-full z-50">
+        <div className="fixed top-0 left-0 w-full">
           <Header />
 
           {/* Fixed Navbar (only on non-auth pages) */}
@@ -43,10 +43,10 @@ function PageContent({ children }) {
       {/* Main page content */}
       <main
         className={`mx-auto max-w-6xl px-4 py-8 ${!hideHeader
-            ? !hideNavbar
-              ? "pt-[128px]" // header + navbar
-              : "pt-[64px]" // header only
-            : "" // root page, no header/navbar
+          ? !hideNavbar
+            ? "pt-[128px]" // header + navbar
+            : "pt-[64px]" // header only
+          : "" // root page, no header/navbar
           }`}
       >
         {children}

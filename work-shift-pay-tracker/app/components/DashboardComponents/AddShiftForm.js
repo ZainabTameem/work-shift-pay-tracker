@@ -43,16 +43,16 @@ export default function AddShiftForm() {
 
   return (
     <div className="w-full flex justify-center pt-16 px-4">
-      <div className="w-full max-w-3xl bg-white shadow-xl border border-gray-200 rounded-2xl p-10">
+      <div className="w-full max-w-3xl bg-white shadow-xl border border-gray-200 rounded-2xl p-10 dark:bg-gray-700">
 
-        <h2 className="text-2xl font-semibold text-center text-[#0E4C58] mb-8 tracking-wide">
+        <h2 className="text-2xl font-semibold text-center text-[#0E4C58] dark:text-[#DDFCE7] mb-8 tracking-wide">
           Add New Shift
         </h2>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 dark:text-[#DDFCE7] mb-1">
               Shift Date
             </label>
             <input
@@ -66,7 +66,7 @@ export default function AddShiftForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 dark:text-[#DDFCE7] mb-1">
               Start Time
             </label>
             <input
@@ -80,7 +80,7 @@ export default function AddShiftForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 dark:text-[#DDFCE7] mb-1">
               End Time
             </label>
             <input
@@ -94,7 +94,7 @@ export default function AddShiftForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 dark:text-[#DDFCE7] mb-1">
               Notes (Optional)
             </label>
             <textarea
@@ -109,8 +109,8 @@ export default function AddShiftForm() {
 
           <button
             type="submit"
-            className="w-full bg-[#0E4C58] text-white text-lg font-medium py-3 
-            rounded-xl hover:bg-[#0C3F4A] transition-all shadow-md"
+            className="w-full bg-[#0E4C58]  dark:bg-[#C7F1D9] text-white text-lg dark:text-gray-700 font-medium py-3 
+            rounded-xl hover:bg-[#0C3F4A]  dark:hover:bg-[#85B79B] transition-all shadow-md"
           >
             Add Shift
           </button>

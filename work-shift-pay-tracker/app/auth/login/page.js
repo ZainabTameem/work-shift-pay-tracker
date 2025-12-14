@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import Input from "../../components/Input";
+import { RoundedFilledButton } from "../../components/Buttons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -58,19 +59,18 @@ export default function LoginPage() {
           />
 
           <div className="flex justify-center mt-4">
-            <button
+            <RoundedFilledButton
               type="submit"
               disabled={loading}
-              className="w-full bg-teal-700 text-white py-2 rounded-full text-center"
-            >
-              {loading ? "Signing in..." : "Sign in"}
-            </button>
+              className="w-full py-2 rounded-full text-center bg-teal-700"
+              text={loading ? "Signing in..." : "Sign in"}
+            />
           </div>
         </form>
 
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gray-300" />
-          <span className="px-4 text-sm text-gray-500">OR</span>
+          <span className="px-4 text-sm text-gray-500 dark:text-white">OR</span>
           <div className="flex-grow h-px bg-gray-300" />
         </div>
 

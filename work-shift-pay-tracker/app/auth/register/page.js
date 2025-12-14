@@ -66,9 +66,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center dark:bg-gray-700">
 
-      <div className="bg-white mt-16 w-full max-w-md rounded-xl shadow-md p-8">
+      <div className="bg-white dark:bg-gray-800 mt-16 w-full max-w-md rounded-xl shadow-md p-8 dark:text-white mb-6">
         <h2 className="text-center text-xl font-semibold mb-6">
           Create an account
         </h2>
@@ -106,7 +106,7 @@ export default function RegisterPage() {
 
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gray-300" />
-          <span className="px-4 text-sm text-gray-500">OR</span>
+          <span className="px-4 text-sm text-gray-500 dark:text-white">OR</span>
           <div className="flex-grow h-px bg-gray-300" />
         </div>
         <p className="text-sm text-center mt-6">

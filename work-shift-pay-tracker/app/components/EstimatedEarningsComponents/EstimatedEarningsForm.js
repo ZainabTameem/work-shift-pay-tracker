@@ -9,6 +9,22 @@ export default function EstimatedEarningsForm() {
   const [hourlyWage, setHourlyWage] = useState(0);
   const [overtimeWage, setOvertimeWage] = useState(0);
   const [shifts, setShifts] = useState([]);
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const userRef = doc(db, "users", user.uid);
+
+    (async () => {
+      const snap = await getDoc(userRef);
+      if (snap.exists()) {
+        setHourlyWage(snap.data().hourlyWage || 0);
+        setOvertimeWage(snap.data().overtimeWage || 0);
+      }
+    })();
+  }, []);
+
   return (
     <div className="max-w-4xl mx-auto mt-10">
       <h1 className="text-2xl font-bold text-[#0E4C58] mb-6">

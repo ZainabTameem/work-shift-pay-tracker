@@ -36,13 +36,18 @@ export default function AddShiftForm() {
       return alert("Start time and end time cannot be the same.");
     }
 
-    // Handle shifts crossing midnight
-    if (endTime < startTime) {
-      if (cross === "yes") {
-        endTime.setDate(endTime.getDate() + 1);
-      } else {
-        return alert("End time is before start time. Please correct or mark as crossing midnight.");
-      }
+    // Handle shifts and validate crossing midnight
+    if (cross === "yes" && endTime <= startTime) {
+      // Shift crosses midnight, adjust end time
+      endTime.setDate(endTime.getDate() + 1);
+    } else if (cross === "no" && endTime <= startTime) {
+      // Invalid: end is before start but not marked as crossing midnight
+      return alert(
+        "End time is before start time. Please mark as crossing midnight if it goes past midnight."
+      );
+    } else if (cross === "yes" && endTime > startTime) {
+      // Invalid: marked as crossing midnight but end is after start on same day
+      return alert("Shift does not cross midnight. Please select 'no'.");
     }
 
     try {

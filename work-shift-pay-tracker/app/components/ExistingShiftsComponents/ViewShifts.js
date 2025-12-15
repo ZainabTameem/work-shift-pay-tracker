@@ -259,7 +259,7 @@ export default function ViewShifts() {
 
           <tbody>
             {shifts.map((shift) => (
-              <tr key={shift.id} className="border-b hover:bg-gray-100">
+              <tr key={shift.id} className="border-b hover:bg-gray-100 dark:hover:bg-gray-500">
                 <td className="p-3">{shift.date}</td>
                 <td className="p-3">{shift.start}</td>
                 <td className="p-3">{shift.end}</td>

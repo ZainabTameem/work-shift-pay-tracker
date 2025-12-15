@@ -2,55 +2,87 @@
 
 import { useState } from "react";
 import { auth, db } from "../../lib/firebase";
-import { doc, collection, addDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import { doc, collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function AddShiftForm() {
   const [date, setDate] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [crossMidnight, setCrossMidnight] = useState(""); // "yes" or "no"
   const [notes, setNotes] = useState("");
-
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user = auth.currentUser;
-    if (!user) return alert("Not logged in");
+    if (!user) return alert("You must be logged in to add a shift.");
+
+    if (!date || !start || !end || !crossMidnight) {
+      return alert("Please fill out all required fields.");
+    }
+
+    const cross = crossMidnight.trim().toLowerCase();
+    if (cross !== "yes" && cross !== "no") {
+      return alert('Please enter "yes" or "no" for crossing midnight.');
+    }
+
+    // Validate shift times
+    const startTime = new Date(`${date}T${start}`);
+    let endTime = new Date(`${date}T${end}`);
+
+    // Reject zero-length shifts
+    if (startTime.getTime() === endTime.getTime()) {
+      return alert("Start time and end time cannot be the same.");
+    }
+
+    // Handle shifts crossing midnight
+    if (endTime < startTime) {
+      if (cross === "yes") {
+        endTime.setDate(endTime.getDate() + 1);
+      } else {
+        return alert("End time is before start time. Please correct or mark as crossing midnight.");
+      }
+    }
 
     try {
+      setLoading(true);
+
       await addDoc(collection(doc(db, "users", user.uid), "shifts"), {
         date,
         start,
         end,
+        crossMidnight: cross,
         notes,
-        createdAt: new Date(),
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString(),
+        createdAt: serverTimestamp(),
       });
 
       alert("Shift added successfully!");
 
+      // Reset form
       setDate("");
       setStart("");
       setEnd("");
+      setCrossMidnight("");
       setNotes("");
-
-      // router.push("/shifts");
     } catch (err) {
-      alert(err.message);
+      console.error(err);
+      alert("Unable to add shift. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="w-full flex justify-center pt-16 px-4">
       <div className="w-full max-w-3xl bg-white shadow-xl border border-gray-200 rounded-2xl p-10 dark:bg-gray-700">
-
         <h2 className="text-2xl font-semibold text-center text-[#0E4C58] dark:text-[#DDFCE7] mb-8 tracking-wide">
           Add New Shift
         </h2>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-
           <div>
             <label className="block text-sm font-medium text-gray-600 dark:text-[#DDFCE7] mb-1">
               Shift Date
@@ -60,8 +92,7 @@ export default function AddShiftForm() {
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-              className="w-full border border-gray-300 p-3 rounded-lg 
-              focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
             />
           </div>
 
@@ -74,8 +105,7 @@ export default function AddShiftForm() {
               value={start}
               onChange={(e) => setStart(e.target.value)}
               required
-              className="w-full border border-gray-300 p-3 rounded-lg 
-              focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
             />
           </div>
 
@@ -88,8 +118,22 @@ export default function AddShiftForm() {
               value={end}
               onChange={(e) => setEnd(e.target.value)}
               required
-              className="w-full border border-gray-300 p-3 rounded-lg 
-              focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
+            />
+          </div>
+
+          {/* Cross Midnight as Text Input */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 dark:text-[#DDFCE7] mb-1">
+              Does this shift cross midnight?
+            </label>
+            <input
+              type="text"
+              value={crossMidnight}
+              onChange={(e) => setCrossMidnight(e.target.value.toLowerCase())}
+              placeholder="yes or no"
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-[#0E4C58] focus:outline-none text-black dark:text-gray-100"
+              required
             />
           </div>
 
@@ -102,19 +146,21 @@ export default function AddShiftForm() {
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               placeholder="Notes..."
-              className="w-full border border-gray-300 p-3 rounded-lg 
-              focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-[#0E4C58] focus:outline-none"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#0E4C58]  dark:bg-[#C7F1D9] text-white text-lg dark:text-gray-700 font-medium py-3 
-            rounded-xl hover:bg-[#0C3F4A]  dark:hover:bg-[#85B79B] transition-all shadow-md"
+            disabled={loading}
+            className={`w-full text-lg font-medium py-3 rounded-xl shadow-md transition-all
+              ${loading
+                ? "bg-gray-400 cursor-not-allowed text-gray-200"
+                : "bg-[#0E4C58] hover:bg-[#0C3F4A] dark:bg-[#C7F1D9] dark:text-gray-700 dark:hover:bg-[#85B79B] text-white"
+              }`}
           >
-            Add Shift
+            {loading ? "Adding Shift..." : "Add Shift"}
           </button>
-
         </form>
       </div>
     </div>

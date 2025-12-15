@@ -124,7 +124,7 @@ export default function EstimatedEarningsForm() {
                   onClick={() =>
                     setExpandedWeek(expandedWeek === weekKey ? null : weekKey)
                   }
-                  className="mt-4 px-4 py-2 bg-[#0E4C58] text-white rounded-full hover:bg-[#0C3F4A] transition  dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-400 dark:hover:text-[#0E4C58]"
+                  className="mt-4 px-4 py-2 bg-[#0E4C58] text-white rounded-full hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-400 dark:hover:text-[#0E4C58]"
                 >
                   {expandedWeek === weekKey
                     ? "Hide Earnings"

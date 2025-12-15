@@ -80,4 +80,28 @@ export default function Profile() {
     router.push("/auth/login");
   };
 
+  const downloadPDF = async () => {
+    const pdf = new jsPDF();
+
+    pdf.setFontSize(18);
+    pdf.text("Work Summary Report", 14, 20);
+
+    pdf.setFontSize(12);
+    pdf.text(`Email: ${userEmail}`, 14, 35);
+    pdf.text(`Hourly Wage: $${hourlyWage}`, 14, 42);
+    pdf.text(`Total Hours: ${totalHours.toFixed(2)}`, 14, 49);
+    pdf.text(`Estimated Earnings: $${estimatedEarnings.toFixed(2)}`, 14, 56);
+
+    const rows = shifts.map((s) => [s.date, s.start, s.end, s.notes || "—"]);
+
+    autoTable(pdf, {
+      startY: 70,
+      head: [["Date", "Start", "End", "Notes"]],
+      body: rows,
+      headStyles: { fillColor: [14, 76, 88] },
+    });
+
+    pdf.save("work_summary.pdf");
+  };
+
 }

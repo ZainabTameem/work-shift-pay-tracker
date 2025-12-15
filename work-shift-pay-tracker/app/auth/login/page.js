@@ -19,7 +19,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     if (!email.trim() || !password.trim()) {
-      alert("Please enter email and password.");
+      alert("Please enter both email and password.");
       return;
     }
 
@@ -28,19 +28,31 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/view");
     } catch (err) {
-      alert(err.code);
+      let message = "Something went wrong. Please try again.";
+      switch (err.code) {
+        case "auth/user-not-found":
+          message = "No account found with this email.";
+          break;
+        case "auth/wrong-password":
+          message = "Incorrect password. Please try again.";
+          break;
+        case "auth/invalid-email":
+          message = "Please enter a valid email address.";
+          break;
+        case "auth/too-many-requests":
+          message = "Too many failed attempts. Try again later.";
+          break;
+      }
+      alert(message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center dark:bg-gray-700 ">
-
+    <div className="min-h-screen bg-gray-100 mt-15 flex flex-col items-center dark:bg-gray-700">
       <div className="bg-white dark:bg-gray-800 mt-16 w-full max-w-md rounded-xl shadow-md p-8 dark:text-white mb-6">
-        <h2 className="text-center text-xl font-semibold mb-6">
-          Sign in
-        </h2>
+        <h2 className="text-center text-xl font-semibold mb-6">Sign in</h2>
 
         <form onSubmit={handleSubmit} className="space-y-5 dark:text-white">
           <Input
@@ -49,7 +61,6 @@ export default function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
           <Input
             type="password"
             placeholder="Password"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { auth, db } from "../../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import { doc, getDoc, collection, getDocs, updateDoc } from "firebase/firestore";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -90,7 +90,11 @@ export default function Profile() {
     pdf.text(`Email: ${userEmail}`, 14, 35);
     pdf.text(`Hourly Wage: $${hourlyWage}`, 14, 42);
     pdf.text(`Total Hours: ${totalHours.toFixed(2)}`, 14, 49);
-    pdf.text(`Estimated Earnings: $${estimatedEarnings.toFixed(2)}`, 14, 56);
+    pdf.text(
+      `Estimated Earnings: $${estimatedEarnings.toFixed(2)}`,
+      14,
+      56
+    );
 
     const rows = shifts.map((s) => [s.date, s.start, s.end, s.notes || "—"]);
 
@@ -103,19 +107,18 @@ export default function Profile() {
 
     pdf.save("work_summary.pdf");
   };
+
   return (
     <div className="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 mt-10">
       <h2 className="text-2xl font-semibold text-[#0E4C58] mb-6 text-center">
         Profile Information
       </h2>
 
-      {/* EMAIL */}
       <div className="mb-6">
         <p className="text-sm text-gray-500">Email</p>
         <p className="text-lg font-medium">{userEmail}</p>
       </div>
 
-      {/* TOTAL HOURS */}
       <div className="mb-6">
         <p className="text-sm text-gray-500">Total Hours Worked</p>
         <p className="text-4xl font-bold text-[#0E4C58]">
@@ -123,7 +126,6 @@ export default function Profile() {
         </p>
       </div>
 
-      {/* HOURLY WAGE */}
       <div className="mb-8">
         <p className="text-sm text-gray-500">Hourly Wage</p>
 
@@ -161,7 +163,6 @@ export default function Profile() {
         )}
       </div>
 
-      {/* DOWNLOAD PDF */}
       <button
         onClick={downloadPDF}
         className="w-full bg-[#0E4C58] text-white py-3 rounded-xl shadow mb-4"
@@ -169,7 +170,6 @@ export default function Profile() {
         Download Work Summary (PDF)
       </button>
 
-      {/* LOG OUT */}
       <button
         onClick={logout}
         className="w-full bg-red-500 text-white py-3 rounded-xl shadow hover:bg-red-600"
@@ -178,5 +178,4 @@ export default function Profile() {
       </button>
     </div>
   );
-
 }

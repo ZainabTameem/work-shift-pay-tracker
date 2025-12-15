@@ -222,7 +222,7 @@ export default function ViewShifts() {
               <button
                 type="button"
                 onClick={() => setIsEditingWage(true)}
-                className="px-4 py-2 text-sm rounded-full border border-[#0E4C58] text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white transition dark:bg-gray-300"
+                className="px-3 py-1 rounded-full bg-[#0E4C58] text-white  hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
               >
                 Edit
               </button>
@@ -244,14 +244,14 @@ export default function ViewShifts() {
                     setIsEditingWage(false);
                     setWageInput(String(hourlyWage));
                   }}
-                  className="px-4 py-2 text-sm rounded-full border border-[#0E4C58] text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white transition dark:bg-gray-300"
+                  className="px-3 py-1 rounded-full bg-[#0E4C58] text-white  hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={handleSaveWage}
-                  className="px-4 py-2 text-sm rounded-full bg-[#0E4C58] text-white hover:bg-[#0C3F4A]"
+                  className="px-3 py-1 rounded-full bg-[#0E4C58] text-white  hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                 >
                   Save
                 </button>
@@ -273,7 +273,7 @@ export default function ViewShifts() {
               <button
                 type="button"
                 onClick={() => setIsEditingOvertime(true)}
-                className="px-4 py-2 text-sm rounded-full border border-[#0E4C58] text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white transition dark:bg-gray-300"
+                className="px-3 py-1 rounded-full bg-[#0E4C58] text-white  hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
               >
                 Edit
               </button>
@@ -295,14 +295,14 @@ export default function ViewShifts() {
                     setIsEditingOvertime(false);
                     setOvertimeInput(String(overtimeWage));
                   }}
-                  className="px-4 py-2 text-sm rounded-full border border-[#0E4C58] text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white transition dark:bg-gray-300"
+                  className="px-3 py-1 rounded-full bg-[#0E4C58] text-white  hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={handleSaveOvertime}
-                  className="px-4 py-2 text-sm rounded-full bg-[#0E4C58] text-white hover:bg-[#0C3F4A]"
+                  className="px-3 py-1 rounded-full bg-[#0E4C58] text-white  hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                 >
                   Save
                 </button>

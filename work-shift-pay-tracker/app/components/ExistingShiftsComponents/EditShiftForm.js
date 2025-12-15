@@ -148,13 +148,13 @@ export default function EditShifts() {
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleSave(shift.id)}
-                    className="px-3 py-1 rounded-full border border-[#0E4C58] text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white dark:bg-[#0E4C58] dark:text-white"
+                    className="px-3 py-1 rounded-full border border-[#0E4C58] bg-[#0E4C58] text-white hover:bg-gray-400 hover:text-[#0E4C58] dark:hover:bg-gray-700 dark:text-white dark:bg-[#0C3F4A] dark:hover:text-white"
                   >
                     Save
                   </button>
                   <button
                     onClick={handleCancel}
-                    className="px-3 py-1 rounded-full border border-[#0E4C58] text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white dark:bg-[#0E4C58] dark:text-white"
+                    className="px-3 py-1 rounded-full border border-[#0E4C58] bg-[#0E4C58] text-white hover:bg-gray-400 hover:text-[#0E4C58] dark:hover:bg-gray-700 dark:text-white dark:bg-[#0C3F4A] dark:hover:text-white"
                   >
                     Cancel
                   </button>
@@ -175,7 +175,7 @@ export default function EditShifts() {
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleEdit(shift)}
-                    className="px-3 py-1 rounded-full border border-[#0E4C58] text-[#0E4C58] hover:bg-[#0E4C58] hover:text-white dark:bg-[#0E4C58] dark:text-white"
+                    className="px-3 py-1 rounded-full border border-[#0E4C58] bg-[#0E4C58] text-white hover:bg-gray-400 hover:text-[#0E4C58] dark:hover:bg-gray-700 dark:text-white dark:bg-[#0C3F4A] dark:hover:text-white"
                   >
                     Edit
                   </button>

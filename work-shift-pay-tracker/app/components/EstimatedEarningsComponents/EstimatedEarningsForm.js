@@ -94,7 +94,7 @@ export default function EstimatedEarningsForm() {
   }, [shifts]);
 
   return (
-    <div className="max-w-5xl mx-auto mt-10 px-4 pb-16">
+    <div className="max-w-5xl mx-auto mt-10 bg-white p-6 rounded-xl shadow-md dark:bg-gray-800">
       <h1 className="text-2xl font-bold text-[#0E4C58] mb-6 dark:text-gray-300">
         Estimated Weekly Earnings
       </h1>
@@ -105,7 +105,6 @@ export default function EstimatedEarningsForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
           {weeks.map((week, index) => {
             const weekKey = `week-${index}`;
-
             const regularPay = week.regular * hourlyWage;
             const overtimePay = week.overtime * overtimeWage;
             const total = regularPay + overtimePay;
@@ -116,35 +115,29 @@ export default function EstimatedEarningsForm() {
                 className="bg-[#F1FAF8] p-5 rounded-xl shadow-md border  dark:bg-gray-500 dark:border-gray-500"
               >
                 <h3 className="font-semibold text-lg mb-2">{week.weekLabel}</h3>
-
                 <p>Regular Hours: <strong>{week.regular.toFixed(1)}</strong></p>
                 <p>Overtime Hours: <strong>{week.overtime.toFixed(1)}</strong></p>
-
                 <button
                   onClick={() =>
                     setExpandedWeek(expandedWeek === weekKey ? null : weekKey)
                   }
-                  className="mt-4 px-4 py-2 bg-[#0E4C58] text-white rounded-full hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-400 dark:hover:text-[#0E4C58]"
+                  className="mt-4 px-4 py-2 bg-[#0E4C58] text-white rounded-full hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                 >
                   {expandedWeek === weekKey
                     ? "Hide Earnings"
                     : "Calculate Earnings"}
                 </button>
-
                 {expandedWeek === weekKey && (
                   <div className="mt-4 bg-white p-4 rounded-lg border dark:bg-gray-800 dark:border-gray-800">
                     <p>
                       Regular: {week.regular.toFixed(1)} × ${hourlyWage} =
                       <strong> ${regularPay.toFixed(2)}</strong>
                     </p>
-
                     <p>
                       Overtime: {week.overtime.toFixed(1)} × ${overtimeWage} =
                       <strong> ${overtimePay.toFixed(2)}</strong>
                     </p>
-
                     <hr className="my-2" />
-
                     <p className="text-lg font-bold">
                       Total: ${total.toFixed(2)}
                     </p>

@@ -15,4 +15,30 @@ export default function Profile() {
 
   const [shifts, setShifts] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const loadData = async () => {
+      setUserEmail(user.email || "");
+
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        const wage = Number(data.hourlyWage || 0);
+        setHourlyWage(wage);
+        setWageInput(String(wage));
+      }
+
+      const shiftsRef = collection(userRef, "shifts");
+      const snap = await getDocs(shiftsRef);
+      setShifts(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+    };
+
+    loadData();
+  }, []);
+
 }

@@ -103,5 +103,80 @@ export default function Profile() {
 
     pdf.save("work_summary.pdf");
   };
+  return (
+    <div className="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 mt-10">
+      <h2 className="text-2xl font-semibold text-[#0E4C58] mb-6 text-center">
+        Profile Information
+      </h2>
+
+      {/* EMAIL */}
+      <div className="mb-6">
+        <p className="text-sm text-gray-500">Email</p>
+        <p className="text-lg font-medium">{userEmail}</p>
+      </div>
+
+      {/* TOTAL HOURS */}
+      <div className="mb-6">
+        <p className="text-sm text-gray-500">Total Hours Worked</p>
+        <p className="text-4xl font-bold text-[#0E4C58]">
+          {totalHours.toFixed(1)}
+        </p>
+      </div>
+
+      {/* HOURLY WAGE */}
+      <div className="mb-8">
+        <p className="text-sm text-gray-500">Hourly Wage</p>
+
+        {!editingWage ? (
+          <div className="flex items-center justify-between mt-1">
+            <p className="text-xl font-semibold">${hourlyWage}</p>
+            <button
+              onClick={() => setEditingWage(true)}
+              className="text-[#0E4C58] hover:underline"
+            >
+              Edit
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-3 mt-2">
+            <input
+              type="number"
+              value={wageInput}
+              onChange={(e) => setWageInput(e.target.value)}
+              className="border p-2 rounded w-32"
+            />
+            <button
+              onClick={saveWage}
+              className="bg-[#0E4C58] text-white px-4 py-2 rounded"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setEditingWage(false)}
+              className="border px-4 py-2 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* DOWNLOAD PDF */}
+      <button
+        onClick={downloadPDF}
+        className="w-full bg-[#0E4C58] text-white py-3 rounded-xl shadow mb-4"
+      >
+        Download Work Summary (PDF)
+      </button>
+
+      {/* LOG OUT */}
+      <button
+        onClick={logout}
+        className="w-full bg-red-500 text-white py-3 rounded-xl shadow hover:bg-red-600"
+      >
+        Log Out
+      </button>
+    </div>
+  );
 
 }

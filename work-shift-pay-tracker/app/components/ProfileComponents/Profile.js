@@ -75,4 +75,9 @@ export default function Profile() {
     setEditingWage(false);
   };
 
+  const logout = async () => {
+    await auth.signOut();
+    router.push("/auth/login");
+  };
+
 }

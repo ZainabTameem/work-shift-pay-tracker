@@ -90,7 +90,11 @@ export default function EstimatedEarningsForm() {
       grouped[weekLabel].overtime += overtime;
     });
 
-    setWeeks(Object.values(grouped));
+    setWeeks(
+      Object.values(grouped).sort(
+        (a, b) => new Date(a.weekLabel.split(" – ")[0]) - new Date(b.weekLabel.split(" – ")[0])
+      )
+    );
   }, [shifts]);
 
   return (

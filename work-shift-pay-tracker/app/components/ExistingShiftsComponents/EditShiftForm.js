@@ -23,8 +23,11 @@ export default function EditShifts() {
     if (!user) return;
     const shiftsRef = collection(doc(db, "users", user.uid), "shifts");
     const unsubscribe = onSnapshot(shiftsRef, (snapshot) => {
-      setShifts(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+      const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      data.sort((a, b) => new Date(a.date) - new Date(b.date));
+      setShifts(data);
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -148,13 +151,13 @@ export default function EditShifts() {
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleSave(shift.id)}
-                    className="px-3 py-1 rounded-full border border-[#0E4C58] bg-[#0E4C58] text-white hover:bg-gray-400 hover:text-[#0E4C58] dark:hover:bg-gray-700 dark:text-white dark:bg-[#0C3F4A] dark:hover:text-white"
+                    className="px-3 py-1 rounded-full bg-[#0E4C58] text-white hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                   >
                     Save
                   </button>
                   <button
                     onClick={handleCancel}
-                    className="px-3 py-1 rounded-full border border-[#0E4C58] bg-[#0E4C58] text-white hover:bg-gray-400 hover:text-[#0E4C58] dark:hover:bg-gray-700 dark:text-white dark:bg-[#0C3F4A] dark:hover:text-white"
+                    className="px-3 py-1 rounded-full bg-[#0E4C58] text-white hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                   >
                     Cancel
                   </button>
@@ -175,7 +178,7 @@ export default function EditShifts() {
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleEdit(shift)}
-                    className="px-3 py-1 rounded-full border border-[#0E4C58] bg-[#0E4C58] text-white hover:bg-gray-400 hover:text-[#0E4C58] dark:hover:bg-gray-700 dark:text-white dark:bg-[#0C3F4A] dark:hover:text-white"
+                    className="px-3 py-1 rounded-full bg-[#0E4C58] text-white  hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
                   >
                     Edit
                   </button>

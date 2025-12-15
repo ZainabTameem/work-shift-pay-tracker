@@ -63,4 +63,16 @@ export default function Profile() {
     return totalHours * hourlyWage;
   }, [totalHours, hourlyWage]);
 
+  const saveWage = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const parsed = Number(wageInput);
+    if (isNaN(parsed) || parsed < 0) return alert("Enter valid wage.");
+
+    await updateDoc(doc(db, "users", user.uid), { hourlyWage: parsed });
+    setHourlyWage(parsed);
+    setEditingWage(false);
+  };
+
 }

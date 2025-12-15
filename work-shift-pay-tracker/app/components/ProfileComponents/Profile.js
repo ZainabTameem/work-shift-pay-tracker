@@ -55,4 +55,12 @@ export default function Profile() {
     return (end - start) / 60;
   };
 
+  const totalHours = useMemo(() => {
+    return shifts.reduce((sum, shift) => sum + calculateShiftHours(shift), 0);
+  }, [shifts]);
+
+  const estimatedEarnings = useMemo(() => {
+    return totalHours * hourlyWage;
+  }, [totalHours, hourlyWage]);
+
 }

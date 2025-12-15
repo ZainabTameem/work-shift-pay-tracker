@@ -41,4 +41,18 @@ export default function Profile() {
     loadData();
   }, []);
 
+  const calculateShiftHours = (shift) => {
+    if (!shift.start || !shift.end) return 0;
+
+    const [sh, sm] = shift.start.split(":").map(Number);
+    const [eh, em] = shift.end.split(":").map(Number);
+
+    let start = sh * 60 + sm;
+    let end = eh * 60 + em;
+
+    if (end < start) end += 24 * 60;
+
+    return (end - start) / 60;
+  };
+
 }

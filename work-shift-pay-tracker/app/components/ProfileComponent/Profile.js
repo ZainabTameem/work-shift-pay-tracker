@@ -109,32 +109,32 @@ export default function Profile() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 mt-10">
+    <div className="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 mt-10 dark:bg-gray-500 dark:border-gray-500">
       <h2 className="text-2xl font-semibold text-[#0E4C58] mb-6 text-center">
         Profile Information
       </h2>
 
       <div className="mb-6">
-        <p className="text-sm text-gray-500">Email</p>
+        <p className="text-sm text-gray-500  dark:text-white">Email</p>
         <p className="text-lg font-medium">{userEmail}</p>
       </div>
 
       <div className="mb-6">
-        <p className="text-sm text-gray-500">Total Hours Worked</p>
+        <p className="text-sm text-gray-500  dark:text-white">Total Hours Worked</p>
         <p className="text-4xl font-bold text-[#0E4C58]">
           {totalHours.toFixed(1)}
         </p>
       </div>
 
       <div className="mb-8">
-        <p className="text-sm text-gray-500">Hourly Wage</p>
+        <p className="text-sm text-gray-500  dark:text-white">Hourly Wage</p>
 
         {!editingWage ? (
           <div className="flex items-center justify-between mt-1">
             <p className="text-xl font-semibold">${hourlyWage}</p>
             <button
               onClick={() => setEditingWage(true)}
-              className="text-[#0E4C58] hover:underline"
+              className="px-3 py-1 rounded-full bg-[#0E4C58] text-white hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
             >
               Edit
             </button>
@@ -165,7 +165,7 @@ export default function Profile() {
 
       <button
         onClick={downloadPDF}
-        className="w-full bg-[#0E4C58] text-white py-3 rounded-xl shadow mb-4"
+        className="w-full bg-[#0E4C58] text-white py-3 rounded-xl shadow mb-4 hover:bg-gray-400 transition hover:text-[#0E4C58] dark:text-white dark:border-[#0E4C58] dark:hover:bg-gray-300 dark:hover:text-[#0E4C58]"
       >
         Download Work Summary (PDF)
       </button>

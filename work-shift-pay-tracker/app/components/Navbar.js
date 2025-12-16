@@ -8,7 +8,6 @@ export default function Navbar() {
     { name: "Add", href: "/add" },
     { name: "Manage Existing Shifts", href: "/shifts" },
     { name: "Estimated Earnings", href: "/earnings" },
-    { name: "Settings", href: "/settings" },
     { name: "Profile", href: "/profile" },
   ];
 

@@ -1,62 +1,56 @@
-import './globals.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import Logo from '../public/Logo.svg';
+"use client";
 
-export const metadata = {
-  title: 'Workly',
-  description: 'Work Shift & Pay Tracker',
-};
+import "./globals.css";
+import { AuthProvider } from "./context/AuthContext";
+import Header from "./components/header";
+import Navbar from "./components/Navbar";
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({ children }) {
   return (
-    <body className="bg-gray-50 text-gray-900 font-sans">
-      <header className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+    <html lang="en">
+      <body className="bg-slate-50 text-slate-900">
+        <AuthProvider>
+          <PageContent>{children}</PageContent>
+        </AuthProvider>
+      </body>
+    </html>
+  );
+}
 
-          <Link href="/">
-            <div className="flex items-center space-x-2">
-              <Image
-                src={Logo}
-                alt="Workly Logo"
-                width={200}
-                height={200}
-              />
+function PageContent({ children }) {
+  const pathname = usePathname();
+
+  const hideHeader = pathname === "/"; // hide header on root page
+  const hideNavbar = pathname === "/" || pathname.startsWith("/auth"); // hide navbar on root and auth pages
+
+  return (
+    <>
+      {/* Fixed Header (visible on all pages except root) */}
+      {!hideHeader && (
+        <div className="fixed top-0 left-0 w-full">
+          <Header />
+
+          {/* Fixed Navbar (only on non-auth pages) */}
+          {!hideNavbar && (
+            <div className="w-full max-w-6xl mx-auto mt-4 px-4">
+              <Navbar />
             </div>
-          </Link>
-
-          <nav className="space-x-4">
-            <Link
-              href="/"
-              className="text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              href="/signup"
-              className="text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Sign Up
-            </Link>
-            <Link
-              href="/login"
-              className="text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Login
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-gray-700 hover:text-blue-600 font-medium"
-            >
-              Dashboard
-            </Link>
-          </nav>
+          )}
         </div>
-      </header>
+      )}
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+      {/* Main page content */}
+      <main
+        className={`mx-auto max-w-6xl px-4 py-8 ${!hideHeader
+          ? !hideNavbar
+            ? "pt-[128px]" // header + navbar
+            : "pt-[64px]" // header only
+          : "" // root page, no header/navbar
+          }`}
+      >
         {children}
       </main>
-    </body>
+    </>
   );
 }

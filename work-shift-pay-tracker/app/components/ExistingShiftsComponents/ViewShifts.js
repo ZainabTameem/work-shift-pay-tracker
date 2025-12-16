@@ -107,7 +107,9 @@ export default function ViewShifts() {
 
     sorted.forEach((shift) => {
       if (!shift.date) return;
-      const dateObj = new Date(shift.date);
+      const [y, m, d] = shift.date.split("-").map(Number);
+      const dateObj = new Date(y, m - 1, d); 
+
       if (isNaN(dateObj.getTime())) return;
 
       const day = dateObj.getDay();

@@ -11,6 +11,11 @@ export default function EstimatedEarningsForm() {
   const [shifts, setShifts] = useState([]);
   const [weeks, setWeeks] = useState([]);
   const [expandedWeek, setExpandedWeek] = useState(null);
+  const parseLocalDate = (str) => {
+    const [y, m, d] = str.split("-").map(Number);
+    return new Date(y, m - 1, d);
+  };
+
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -56,7 +61,7 @@ export default function EstimatedEarningsForm() {
     const grouped = {};
 
     shifts.forEach((shift) => {
-      const date = new Date(shift.date);
+      const date = parseLocalDate(shift.date);
       const day = date.getDay();
 
       const monday = new Date(date);

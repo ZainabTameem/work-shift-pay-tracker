@@ -7,7 +7,6 @@ export default function Navbar() {
     { name: "Dashboard", href: "/dashboard" },
     { name: "Manage Existing Shifts", href: "/shifts" },
     { name: "Estimated Earnings", href: "/earnings" },
-    { name: "Settings", href: "/settings" },
     { name: "Profile", href: "/profile" },
   ];
 

@@ -59,9 +59,9 @@ export default function AddShiftForm() {
         end,
         crossMidnight: cross,
         notes,
-        startTime: startTime.toISOString(),
-        endTime: endTime.toISOString(),
-        createdAt: serverTimestamp(),
+        startTime: startTime,
+        endTime: endTime,
+        createdAt: new Date(),
       });
 
       alert("Shift added successfully!");
